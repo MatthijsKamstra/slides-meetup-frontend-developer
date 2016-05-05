@@ -4,7 +4,7 @@
 
 <!-- .slide: data-background="img/logo/haxe-logo-vertical-big.png" data-background-size="700px" -->
 
-![](/qrcode.png)
+![](qrcode.png)
 
 ::note::
 
@@ -1273,7 +1273,7 @@ Starting Neko Server on localhost:2000
 
 [@matthijskamstra](https://twitter.com/matthijskamstra) #haxe
 
-![](/qrcode.png)
+![](qrcode.png)
 
 [github](http://matthijskamstra.github.io/slides-meetup-frontend-developer/)
 
