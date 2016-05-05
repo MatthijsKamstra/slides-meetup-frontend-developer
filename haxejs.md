@@ -113,7 +113,7 @@ Web <!-- .element: class="fragment" data-fragment-index="2" -->
 
 Java / Android <!-- .element: class="fragment" data-fragment-index="3" -->  
 
-Hacker / Haxe'r? <!-- .element: class="fragment" data-fragment-index="4" -->  
+Maker / Hacker <!-- .element: class="fragment" data-fragment-index="4" -->  
 
 ::subslide::
 
@@ -247,6 +247,8 @@ Why should I use it?<!-- .element: class="fragment" data-fragment-index="2" -->
 
 What problem does it solve?<!-- .element: class="fragment" data-fragment-index="3" -->  
 
+"Live" coding!<!-- .element: class="fragment" data-fragment-index="4" -->  
+
 Q&A<!-- .element: class="fragment" data-fragment-index="6" -->  
 
 
@@ -262,11 +264,11 @@ Q&A<!-- .element: class="fragment" data-fragment-index="6" -->
 
 the cross-platform toolkit
 
-> Haxe is an open source toolkit based on a modern, high level, strictly typed programming language, <!-- .element: class="fragment" data-fragment-index="1" --> 
+> Haxe is an open source toolkit based on a modern, high level, strictly typed programming language,
 
-> a cross-compiler, <!-- .element: class="fragment" data-fragment-index="2" --> 
+> a cross-compiler, 
 
-> a complete cross platform standard library and ways to access each platform's native capabilities. <!-- .element: class="fragment" data-fragment-index="3" --> 
+> a complete cross platform standard library and ways to access each platform's native capabilities. 
 
 source: [haxe.org](http://haxe.org/)
 
@@ -606,6 +608,10 @@ why should you use it!
 
 <!-- .slide: data-background="img/slides/who-uses-haxe.png" data-background-size="800px" data-background-color="#ffffff" -->
 
+::subslide::
+
+#?
+
 
 ::subslide::
 
@@ -735,7 +741,7 @@ Hindi
 
 - Familiar AS3/C/Java-style syntax. 
 - Strict type safety, with a powerful type inference engine.
-- 9 compilation targets
+- 10 compilation targets
 - Reduced language/platform lock-in
 - Open source
 - Started 10 years ago
@@ -776,7 +782,7 @@ online REPL try.haxe.org
 
 ::subslide::
 
-<!-- .slide: data-background-image="img/code/00foldersetup.png"  data-background-size="1200px"  -->
+<!-- .slide: data-background-image="img/code/00foldersetup.png" -->
 
 ::note::
 
@@ -858,12 +864,12 @@ haxe build.hxml
 
 ::subslide::
 
-<!-- .slide: data-background-image="img/code/01js.png"  data-background-size="1200px"  -->
+<!-- .slide: data-background-image="img/code/01js.png" -->
 
 
 ::subslide::
 
-<!-- .slide: data-background-image="img/code/02jscode.png"  data-background-size="1200px"  -->
+<!-- .slide: data-background-image="img/code/02jscode.png" -->
 
 
 
@@ -940,11 +946,11 @@ class MainPHP {
 
 ::subslide::
 
-<!-- .slide: data-background-image="img/code/03php.png"  data-background-size="1200px"  -->
+<!-- .slide: data-background-image="img/code/03php.png" -->
 
 ::subslide::
 
-<!-- .slide: data-background-image="img/code/04phpweb.png"  data-background-size="1200px"  -->
+<!-- .slide: data-background-image="img/code/04phpweb.png" -->
 
 ::subslide::
 
@@ -1012,7 +1018,7 @@ typedef RespondsData =
 
 ::subslide::
 
-<!-- .slide: data-background-image="img/code/05phpjson.png"  data-background-size="1200px"  -->
+<!-- .slide: data-background-image="img/code/05phpjson.png" -->
 
 
 ::subslide::
@@ -1108,7 +1114,7 @@ class Config {
 
 ::subslide::
 
-<!-- .slide: data-background-image="img/code/06jsjson.png"  data-background-size="1200px"  -->
+<!-- .slide: data-background-image="img/code/06jsjson.png" -->
 
 
 ::subslide::
@@ -1222,7 +1228,7 @@ class MainNeko {
 ::subslide::
 
 
-<!-- .slide: data-background-image="img/code/07neko.png"  data-background-size="1200px"  -->
+<!-- .slide: data-background-image="img/code/07neko.png" -->
 
 ::note::
 
@@ -1247,7 +1253,7 @@ Starting Neko Server on localhost:2000
 ::subslide::
 
 
-<!-- .slide: data-background-image="img/code/08nekoserver.png"  data-background-size="1200px"  -->
+<!-- .slide: data-background-image="img/code/08nekoserver.png" -->
 
 
 
