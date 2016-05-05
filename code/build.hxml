@@ -1,0 +1,22 @@
+-cp src
+-main MainJS
+-js bin/example.js
+-D source-map-content
+-dce full
+-debug
+
+--next
+
+-cp src
+-main MainPHP
+-php bin/www
+-dce full
+-debug
+
+--next
+
+-cp src
+-main MainNeko
+-neko bin/neko/index.n
+-dce full
+-debug

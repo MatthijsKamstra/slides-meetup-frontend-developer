@@ -21,7 +21,6 @@ And thank you for having me.
 
 #TL;DR
 
-
 ::subslide::
 
 the cross-platform toolkit
@@ -88,7 +87,10 @@ The C++ target allows you to target major mobile platforms at native speed.
 
 [@matthijskamstra](https://twitter.com/matthijskamstra) #haxe
 
-[![](/qrcode.png)](http://matthijskamstra.github.io/slides-meetup-webcrafters/)
+![](/qrcode.png)
+
+[github](http://matthijskamstra.github.io/slides-meetup-frontend-developer/)
+
 
 
 ::subslide::
@@ -772,6 +774,484 @@ online REPL try.haxe.org
 
 
 
+::subslide::
+
+<!-- .slide: data-background-image="img/code/00foldersetup.png"  data-background-size="1200px"  -->
+
+::note::
+
+- folder `src`
+- folder `bin`
+	- index.html
+- `MainJS.hx`
+
+
+::subslide::
+
+`src/MainJS.hx`
+
+
+```
+package;
+
+class MainJS {
+	
+	public function new () {
+		trace( "Hello world *Haxe JS/PHP example* (JS version)" );
+	}
+
+	static public function main () {
+		var main = new MainJS ();
+	}
+}
+
+```
+
+::note::
+
+- package `org.yourapp.ClassName` -> `org/yourapp/ClassName.hx`
+- constructor
+- static main function
+
+If you want certain code to run automatically, you need to put it in a static main function, and specify the class in the compiler arguments.
+
+
+::subslide::
+
+
+`/build.hxml`
+
+```
+-cp src
+-main MainJS
+-js bin/example.js
+-D source-map-content
+-dce full
+-debug
+
+```
+
+::note::
+
+- sourcefolder
+- run automaticly static main function 
+- target and folder
+- source map
+- dead code eliminations
+- debug
+
+
+
+::subslide::
+
+
+`haxe build.hxml`
+
+```
+cd 'path/to/this/folder'
+haxe build.hxml
+```
+
+::note::
+
+
+
+::subslide::
+
+<!-- .slide: data-background-image="img/code/01js.png"  data-background-size="1200px"  -->
+
+
+::subslide::
+
+<!-- .slide: data-background-image="img/code/02jscode.png"  data-background-size="1200px"  -->
+
+
+
+::subslide::
+
+`src/MainPHP.hx`
+
+
+```
+package;
+
+import php.Lib;
+
+class MainPHP {
+	
+	public function new () {
+		Lib.println( "Hello world 
+		*Haxe JS/PHP example*
+		(PHP version)" );
+	}
+
+	static public function main () {
+		var main = new MainPHP ();
+	}
+}
+
+```
+
+::note::
+
+::subslide::
+
+`/build.hxml`
+
+```
+# JS ...
+
+--next
+
+-cp src
+-main MainPHP
+-php bin/www
+-dce full
+-debug
+
+```
+
+::note::
+
+- php target and folder
+
+
+::subslide::
+
+`/build.hxml`
+
+```
+-cp src
+-main MainJS
+-js bin/example.js
+-D source-map-content
+-dce full
+-debug
+
+--next
+
+-cp src
+-main MainPHP
+-php bin/www
+-dce full
+-debug
+
+```
+
+::subslide::
+
+<!-- .slide: data-background-image="img/code/03php.png"  data-background-size="1200px"  -->
+
+::subslide::
+
+<!-- .slide: data-background-image="img/code/04phpweb.png"  data-background-size="1200px"  -->
+
+::subslide::
+
+`src/MainPHP.hx`
+
+```
+package;
+import php.Lib;
+import php.Web;
+class MainPHP {
+	public function new () {
+		var json : AST.RespondsData = {
+			ok: true, 
+			message : 'Hello everybody!'
+		}
+		Web.setHeader('Access-Control-Allow-Origin','*');
+		Lib.println(haxe.Json.stringify(json)); 
+	}
+	static public function main () {
+		var main = new MainPHP ();
+	}
+}
+```
+
+::subslide::
+
+
+`src/AST.hx`
+
+```
+package;
+typedef RespondsData = 
+{
+	var ok : Bool;
+	@:optional var message : String;
+	var error : String;
+	@:optional var warning : String;
+}
+```
+
+::subslide::
+
+`haxe build`
+
+```
+haxe build.hxml 
+src/MainPHP.hx:13: lines 13-16 : Object requires field error
+```
+
+::subslide::
+
+
+`src/AST.hx`
+
+```
+package;
+typedef RespondsData = 
+{
+	var ok : Bool;
+	@:optional var message : String;
+	@:optional var error : String;
+	@:optional var warning : String;
+}
+```
+
+::subslide::
+
+<!-- .slide: data-background-image="img/code/05phpjson.png"  data-background-size="1200px"  -->
+
+
+::subslide::
+
+`src/MainJS.hx`
+
+```
+package;
+
+class MainJS {
+	
+	public function new () {
+		trace( "Hello world *Haxe JS/PHP example* (JS version)" );
+	}
+
+	static public function main () {
+		var main = new MainJS ();
+	}
+}
+
+```
+
+::subslide::
+
+`src/MainJS.hx`
+
+
+```
+package;
+
+import AST;
+
+class MainJS {
+	public function new () {
+		apiCall();
+	}
+	function apiCall ()	{	
+		trace('apiCall');
+	}
+	static public function main () {
+		var main = new MainJS ();
+	}
+}
+
+```
+
+::subslide::
+
+`src/MainJS.hx`
+
+
+```
+function apiCall () {	
+	var req = new haxe.Http( Config.URL );
+	req.onData = function (data : String){
+		var json : AST.RespondsData = haxe.Json.parse(data);
+		if(json.ok == true){
+			js.Browser.console.info(json.message);
+		} else {
+			js.Browser.console.warn('not ok: ${json.message}');
+		}
+	}
+	req.onError = function (error){
+		js.Browser.console.error('error: $error');
+	}
+	req.request(true);
+}
+
+```
+
+::subslide::
+
+```
+haxe build.hxml 
+src/MainJS.hx:5: characters 7-19 : Type not found : const.Config
+```
+
+::subslide::
+
+`src/const/Config.hx`
+
+```
+package const;
+
+class Config {
+
+	public static var URL : String = "http://haxe-badass-php:8888/";
+	
+}
+
+```
+
+
+::subslide::
+
+<!-- .slide: data-background-image="img/code/06jsjson.png"  data-background-size="1200px"  -->
+
+
+::subslide::
+
+```
+MainJS.hx:16 | Hello world *Haxe JS/PHP example* (JS version)
+MainJS.hx:22 | apiCall
+MainJS.hx:30 | Hello everybody!
+
+```
+
+
+::subslide::
+
+`/build.hxml`
+
+
+```
+-cp src
+-main MainJS
+-js bin/example.js
+-D source-map-content
+-dce full
+-debug
+
+--next
+
+-cp src
+-main MainPHP
+-php bin/www
+-dce full
+-debug
+```
+
+::subslide::
+
+`/build.hxml`
+
+
+```
+# JS ...
+
+--next
+
+# PHP ...
+
+--next
+
+-cp src
+-main MainNeko
+-neko bin/neko/index.n
+-dce full
+-debug
+```
+
+
+::subslide::
+
+
+`src/MainPHP.hx`
+
+
+```
+package;
+import php.Lib;
+import php.Web;
+class MainPHP {
+	public function new () {
+		var json : AST.RespondsData = {
+			ok: true, 
+			message : 'Hello everybody!'
+		}
+		Web.setHeader('Access-Control-Allow-Origin','*');
+		Lib.println(haxe.Json.stringify(json)); 
+	}
+	static public function main () {
+		var main = new MainPHP ();
+	}
+}
+
+```
+
+
+::subslide::
+
+
+`src/MainNeko.hx`
+
+
+```
+package;
+
+#if php
+	import php.Lib;
+	import php.Web;
+#elseif neko
+	import neko.Lib;
+	import neko.Web;
+#end
+
+class MainNeko {
+	
+	...
+}
+
+```
+
+
+
+
+::subslide::
+
+
+<!-- .slide: data-background-image="img/code/07neko.png"  data-background-size="1200px"  -->
+
+::note::
+
+
+::subslide::
+
+`start nekoserver`
+
+```
+cd 'path/to/this/folder'
+cd bin/neko
+nekotools server
+
+```
+
+terminal
+
+```
+Starting Neko Server on localhost:2000
+```
+
+::subslide::
+
+
+<!-- .slide: data-background-image="img/code/08nekoserver.png"  data-background-size="1200px"  -->
+
+
+
+
 ::slide::
 
 <!-- .slide: data-background-video="video/thats_all_folks.mp4,video/thats_all_folks.webm" -->
@@ -793,7 +1273,9 @@ online REPL try.haxe.org
 
 [@matthijskamstra](https://twitter.com/matthijskamstra) #haxe
 
-[![](/qrcode.png)](http://matthijskamstra.github.io/slides-meetup-webcrafters/)
+![](/qrcode.png)
+
+[github](http://matthijskamstra.github.io/slides-meetup-frontend-developer/)
 
 
 
